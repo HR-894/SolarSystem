@@ -5,29 +5,124 @@
 }
 body{
 	position: relative;
-	cursor: -webkit-grab;
-  -webkit-touch-callout: none;
+    cursor: none; /* Default cursor ko hide karein */
+    -webkit-touch-callout: none;
     -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    overflow: hidden;
+    height: 100vh;
+}
+/* Custom Cursor and Trail */
+@keyframes rainbow-cursor-glow {
+    0% { box-shadow: 0 0 10px #ff0000, 0 0 20px #ff00de; }
+    25% { box-shadow: 0 0 10px #ff7f00, 0 0 20px #00ff00; }
+    50% { box-shadow: 0 0 10px #00ff00, 0 0 20px #007fff; }
+    75% { box-shadow: 0 0 10px #007fff, 0 0 20px #8b00ff; }
+    100% { box-shadow: 0 0 10px #8b00ff, 0 0 20px #ff0000; }
+}
+
+.cursor-trail {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    animation: rainbow-cursor-glow 3s linear infinite;
+}
+
+.trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: trail-fade 0.8s linear forwards;
+}
+
+@keyframes trail-fade {
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-in-out;
+}
+#preloader-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hidden {
+    display: none !important;
+}
+.fade-out {
+    opacity: 0;
 }
 .content{
 	margin: auto;
 	width: 1400px;
 	height: 1200px;
-	background-color: #100020;
 	position: relative;
-	background-image: url('https://res.cloudinary.com/yerevan/image/upload/v1484080037/space_xref1i.jpg');
+    background: transparent;
 }
-.content:before{
-	content: "";
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0,0,0,0.5);
+
+/* Pure CSS Star Background */
+@keyframes animStar {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-2000px); }
 }
+
+#stars, #stars2, #stars3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#stars {
+ background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAA1BMVEX///+nxBvIAAAADElEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=) repeat top center;
+ z-index: -3;
+ animation: animStar 50s linear infinite;
+}
+
+#stars2 {
+ background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAA1BMVEX///+nxBvIAAAADElEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=) repeat top center;
+ z-index: -2;
+ background-size: 2px 2px;
+ animation: animStar 100s linear infinite;
+}
+
+#stars3 {
+ background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAA1BMVEX///+nxBvIAAAADElEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=) repeat top center;
+ z-index: -1;
+ background-size: 3px 3px;
+ animation: animStar 150s linear infinite;
+}
+
 
 .sun{
 	width: 100px;
@@ -400,7 +495,6 @@ body{
 	background: linear-gradient(-90deg, rgba(0, 0, 0, 0.8),rgba(255, 255, 0, 0.0));
 }
 
-
 .neptune_container{
 	width: 22px;
 	height: 22px;
@@ -446,32 +540,100 @@ body{
 	border-radius: 100%;
 	background: linear-gradient(-90deg, rgba(0, 0, 0, 0.8),rgba(255, 255, 0, 0.0));
 }
+
 .circles>div{
 	position: absolute;
-	border-radius: 100%;
-	border: 2px solid rgba(55,205,255,0.2);
+	border-radius: 50%;
+	border: 1px solid rgba(55,205,255,0.2);
 	box-sizing: border-box;
 }
+
 .planet{
 	border-radius: 100%;
 	position: absolute;
 }
 
-
 .controls{
 	position: fixed;
-	float: right;
+	left: 50%;
+    transform: translateX(-50%);
 	padding: 20px;
 	bottom: 0;
+    z-index: 100;
+    text-align: center;
 }
 .controls>p{
   display: inline-block;
-  margin: 20px;
+  margin: 10px;
 }
 
-button{
-	top: 0;
-	font-size: 25px;
-	padding: 10px 50px;
-	background-color: transparent;
+@keyframes rainbow-glow {
+    0% { box-shadow: 0 0 5px #ff0000, 0 0 10px #ff7f00, 0 0 15px #ffff00; }
+    20% { box-shadow: 0 0 5px #00ff00, 0 0 10px #007fff, 0 0 15px #0000ff; }
+    40% { box-shadow: 0 0 5px #8b00ff, 0 0 10px #ff0000, 0 0 15px #ff7f00; }
+    60% { box-shadow: 0 0 5px #ffff00, 0 0 10px #00ff00, 0 0 15px #007fff; }
+    80% { box-shadow: 0 0 5px #0000ff, 0 0 10px #8b00ff, 0 0 15px #ff0000; }
+    100% { box-shadow: 0 0 5px #ff7f00, 0 0 10px #ffff00, 0 0 15px #00ff00; }
+}
+
+.credit-container {
+    display: inline-block;
+    padding: 10px 25px;
+    margin-top: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+.credit-container:hover {
+    background: rgba(0, 0, 0, 0.4);
+    animation: rainbow-glow 2s linear infinite;
+}
+.credit {
+    margin: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #fff;
+}
+#speed-slider {
+    width: 200px;
+    vertical-align: middle;
+}
+label {
+    vertical-align: middle;
+}
+#planet-details {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    color: #fff;
+}
+#planet-details h2 {
+    margin-top: 0;
+}
+#planet-details ul {
+    list-style: none;
+    padding: 0;
+}
+#planet-details li {
+    margin-bottom: 10px;
+}
+#close-details {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
 }
