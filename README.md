@@ -1,24 +1,25 @@
-# Solar System Simulation 🌌
+# 🚀 Interactive 3D Solar System
 
-![Solar System Demo GIF](URL_YAHAN_PASTE_KAREIN)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=github)](https://hr-894.github.io/SolarSystem/)
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=github)](https://HR-894.github.io/SolarSystem/)
+Welcome to the Interactive 3D Solar System, a mesmerizing animation of our planetary system built entirely with HTML, CSS, and JavaScript. Watch the planets orbit the sun, and drag your mouse to change the perspective for a stunning 3D effect!
 
-A visually engaging and interactive 3D simulation of our solar system built purely with HTML, CSS, and JavaScript. Watch the planets orbit the sun and even change your perspective with a simple drag of the mouse!
+![Solar System Demo](demo.gif)
 
 ---
 
 ## ✨ Features
 
-* **Real-time Animation:** All planets orbit the sun at their relative speeds.
-* **Interactive 3D Perspective:** Drag the mouse vertically to change the viewing angle of the orbital plane.
-* **Planet Details:** Each planet is rendered with its own unique texture and size.
-* **Moon's Orbit:** Watch the Moon orbit the Earth as the Earth orbits the Sun.
-* **Start/Stop Controls:** Easily play and pause the simulation.
+* **Full Solar System Animation:** All 8 planets orbiting the Sun at their relative speeds.
+* **3D Perspective Control:** Click and drag your mouse vertically to change the viewing angle of the orbits.
+* **Realistic Orbit Paths:** Elliptical orbit paths drawn for each planet.
+* **Dynamic Z-Indexing:** Planets realistically move in front of and behind the Sun.
+* **Play/Pause Controls:** Easily start and stop the animation.
+* **Saturn's Rings & Earth's Moon:** Includes details like Saturn's rings and the Moon orbiting the Earth.
 
 ---
 
-## 🛠️ Tech Stack Used
+## 🛠️ Tech Stack
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
@@ -27,9 +28,7 @@ A visually engaging and interactive 3D simulation of our solar system built pure
 
 ---
 
-## 🚀 How to Run Locally
-
-If you want to run this project on your local machine, follow these simple steps:
+## 🔧 How to Run Locally
 
 1.  **Clone the repository:**
     ```bash
@@ -40,9 +39,10 @@ If you want to run this project on your local machine, follow these simple steps
     cd SolarSystem
     ```
 3.  **Open `index.html` in your favorite browser.**
-
-That's it! The simulation should be up and running.
+    And that's it! The planets will start their cosmic dance.
 
 ---
+
+## 👨‍💻 Author
 
 Made with ❤️ by [HR-894](https://github.com/HR-894).
