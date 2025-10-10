@@ -758,3 +758,69 @@ label {
     font-size: 20px;
     cursor: none;
 }
+/* ========================================= */
+/* ========= RESPONSIVE DESIGN ============= */
+/* ========================================= */
+
+/* ------ For TABLETS (601px to 900px) ------ */
+@media (max-width: 900px) {
+    #solar-system-wrapper {
+        /* Solar system ko thoda chota kar dete hain */
+        transform: scale(0.7) !important; 
+    }
+    .title-container {
+        top: 10px;
+    }
+    .controls {
+        bottom: 5px;
+    }
+}
+
+
+/* ------ For MOBILE PHONES (600px and smaller) ------ */
+@media (max-width: 600px) {
+    #solar-system-wrapper {
+        /* Mobile ke liye aur chota kar dete hain */
+        transform: scale(0.5) !important;
+    }
+
+    /* UI elements ko adjust karte hain */
+    .title-container {
+        padding: 5px 10px;
+    }
+    #main-title {
+        font-size: 16px;
+    }
+
+    .controls {
+        width: auto;
+        padding: 8px 10px;
+        gap: 8px;
+    }
+    #speed-slider {
+        width: 80px;
+    }
+    #speed-display {
+        min-width: 40px;
+        font-size: 14px;
+    }
+    .zoom-controls button {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+    }
+    .credit-container {
+        display: none; /* Mobile par jagah bachane ke liye hide kar dete hain */
+    }
+
+    #info-button {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+    
+    #planet-details {
+        width: 85%;
+        padding: 15px;
+    }
+}
