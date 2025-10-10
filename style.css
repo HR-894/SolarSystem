@@ -764,17 +764,23 @@ label {
     font-size: 20px;
     cursor: none;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> eaf89087d6b8bfc5c8db7a3c1df27d4c38c2b8ae
 /* ========================================= */
 /* ========= RESPONSIVE DESIGN ============= */
 /* ========================================= */
 
+<<<<<<< HEAD
 @media (max-width: 900px) { /* Tablets and Phones */
     .cursor-trail {
         display: none !important; /* Star cursor ko hide kar dein */
     }
 }
 
+=======
+>>>>>>> eaf89087d6b8bfc5c8db7a3c1df27d4c38c2b8ae
 /* ------ For TABLETS (601px to 900px) ------ */
 @media (max-width: 900px) {
     #solar-system-wrapper {
@@ -836,4 +842,8 @@ label {
         width: 85%;
         padding: 15px;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> eaf89087d6b8bfc5c8db7a3c1df27d4c38c2b8ae
