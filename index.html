@@ -1,142 +1,130 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
     <div class="cursor-trail"></div>
 
+    <div id="universe-bg"></div>
     <div id='stars'></div>
     <div id='stars2'></div>
     <div id='stars3'></div>
-
 
     <div id="preloader">
         <video id="preloader-video" autoplay muted>
             <source src="preloader-video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <button id="skip-button" class="hidden">Skip</button>
     </div>
 
-    <div class="content">
-        <div class="circles">
-            <div class="mercury_circle"></div>
-            <div class="venus_circle"></div>
-            <div class="earth_circle"></div>
-            <div class="mars_circle"></div>
-            <div class="saturn_circle"></div>
-            <div class="jupiter_circle"></div>
-            <div class="uranus_circle"></div>
-            <div class="neptune_circle"></div>
-        </div>
+    <div id="meteor-shower" class="hidden"></div>
 
-        <div id="planets">
-            <div class="planet sun"></div>
-            <div class="mercury_container" data-planet="mercury">
-                <div class="gif_mercury"></div>
-                <div class="shadow_mercury">
-                    <div class="light"></div>
-                    <div class="shadow"></div>
-                </div>
+    <div class="content hidden">
+        <div id="solar-system-wrapper">
+            <div class="circles">
+                <div class="mercury_circle"></div>
+                <div class="venus_circle"></div>
+                <div class="earth_circle"></div>
+                <div class="mars_circle"></div>
+                <div class="saturn_circle"></div>
+                <div class="jupiter_circle"></div>
+                <div class="uranus_circle"></div>
+                <div class="neptune_circle"></div>
             </div>
-            <div class="venus_container" data-planet="venus">
-                <div class="gif_venus"></div>
-                <div class="shadow_venus">
-                    <div class="light"></div>
-                    <div class="shadow"></div>
+
+            <div id="planets">
+                <div class="planet sun" data-planet="sun"></div>
+                <div class="mercury_container" data-planet="mercury">
+                    <div class="gif_mercury"></div>
+                    <div class="shadow_mercury"><div class="shadow"></div></div>
                 </div>
-            </div>
-            <div class="earth_moon_container" data-planet="earth">
-                <div class="earth_container">
-                    <div class="gif_earth">
-                        <img src="https://res.cloudinary.com/yerevan/image/upload/v1484080036/earth_saibbo.gif">
+                <div class="venus_container" data-planet="venus">
+                    <div class="gif_venus"></div>
+                    <div class="shadow_venus"><div class="shadow"></div></div>
+                </div>
+                <div class="earth_moon_container" data-planet="earth">
+                    <div class="gif_earth"><img src="https://res.cloudinary.com/yerevan/image/upload/v1484080036/earth_saibbo.gif"></div>
+                    <div class="shadow_earth"><div class="shadow"></div></div>
+                    <div class="moon"><img src="https://res.cloudinary.com/yerevan/image/upload/v1484080036/moon_nqqsgu.gif"></div>
+                </div>
+                <div class="mars_container" data-planet="mars">
+                    <div class="gif_mars"></div>
+                    <div class="shadow_mars"><div class="shadow"></div></div>
+                </div>
+                <div class="jupiter_container" data-planet="jupiter">
+                    <div class="gif_jupiter"><img src="https://res.cloudinary.com/yerevan/image/upload/v1484080036/jupiter_cxhuh5.gif"></div>
+                    <div class="shadow_jupiter"><div class="shadow"></div></div>
+                </div>
+                <div class="saturn_ring_container" data-planet="saturn">
+                    <div class="saturn_container">
+                        <div class="gif_saturn"><img src="https://res.cloudinary.com/yerevan/image/upload/v1484080036/jupiter_cxhuh5.gif"></div>
+                        <div class="shadow_saturn"><div class="shadow"></div></div>
                     </div>
-                    <div class="shadow_earth">
-                        <div class="light"></div>
-                        <div class="shadow"></div>
-                    </div>
-                </div>
-                <div class="moon_container">
-                    <div class="moon">
-                        <img src="https://res.cloudinary.com/yerevan/image/upload/v1484080036/moon_nqqsgu.gif">
-                    </div>
-                </div>
-            </div>
-            <div class="mars_container" data-planet="mars">
-                <div class="gif_mars"></div>
-                <div class="shadow_mars">
-                    <div class="light"></div>
-                    <div class="shadow"></div>
-                </div>
-            </div>
-            <div class="jupiter_container" data-planet="jupiter">
-                <div class="gif_jupiter">
-                    <img src="https://res.cloudinary.com/yerevan/image/upload/v1484080036/jupiter_cxhuh5.gif">
-                </div>
-                <div class="shadow_jupiter">
-                    <div class="light"></div>
-                    <div class="shadow"></div>
-                </div>
-            </div>
-            <div class="saturn_ring_container" data-planet="saturn">
-                <div class="saturn_container">
-                    <div class="gif_saturn">
-                        <img src="https://res.cloudinary.com/yerevan/image/upload/v1484080036/jupiter_cxhuh5.gif">
-                    </div>
-                    <div class="shadow_saturn">
-                        <div class="light"></div>
-                        <div class="shadow"></div>
-                    </div>
-                </div>
-                <div class="ring_container">
-                    <div class="gif_ring">
-                        <div>
-                            <img src="https://res.cloudinary.com/yerevan/image/upload/v1484080037/ring_zofwhd.png">
-                        </div>
-                        <div>
-                            <img src="https://res.cloudinary.com/yerevan/image/upload/v1484080037/ring_zofwhd.png">
+                    <div class="ring_container">
+                        <div class="gif_ring">
+                            <div><img src="https://res.cloudinary.com/yerevan/image/upload/v1484080037/ring_zofwhd.png"></div>
+                            <div><img src="https://res.cloudinary.com/yerevan/image/upload/v1484080037/ring_zofwhd.png"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="uranus_container" data-planet="uranus">
-                <div class="gif_uranus"></div>
-                <div class="shadow_uranus">
-                    <div class="light"></div>
-                    <div class="shadow"></div>
+                <div class="uranus_container" data-planet="uranus">
+                    <div class="gif_uranus"></div>
+                    <div class="shadow_uranus"><div class="shadow"></div></div>
                 </div>
-            </div>
-            <div class="neptune_container" data-planet="neptune">
-                <div class="gif_neptune"></div>
-                <div class="shadow_neptune">
-                    <div class="light"></div>
-                    <div class="shadow"></div>
+                <div class="neptune_container" data-planet="neptune">
+                    <div class="gif_neptune"></div>
+                    <div class="shadow_neptune"><div class="shadow"></div></div>
                 </div>
             </div>
         </div>
-
-        <div class="controls">
-            <label for="speed-slider">Speed:</label>
-            <input type="range" id="speed-slider" min="0.1" max="5" step="0.1" value="1">
-            <p>Grab and move mouse verticaly to change perspective</p>
-            <div class="credit-container">
-                <p class="credit">Made by H.R_894</p>
-            </div>
-        </div>
-
-        <div id="planet-details" class="hidden">
-            <button id="close-details">X</button>
-            <h2 id="planet-name"></h2>
-            <p id="planet-description"></p>
-            <ul>
-                <li><strong>Diameter:</strong> <span id="planet-diameter"></span></li>
-                <li><strong>Mass:</strong> <span id="planet-mass"></span></li>
-                <li><strong>Distance from Sun:</strong> <span id="planet-distance"></span></li>
-            </ul>
-        </div>
-
     </div>
+    
+    <div class="title-container hidden">
+        <h1 id="main-title">INTERACTIVE SOLAR SYSTEM</h1>
+    </div>
+    <button id="info-button" class="hidden">ⓘ</button>
+    
+    <div class="controls hidden">
+        <label for="speed-slider">Speed:</label>
+        <input type="range" id="speed-slider" min="0.1" max="5" step="0.1" value="1">
+        <div id="speed-display">1.0x</div>
+        <div class="zoom-controls">
+            <button id="zoom-out">-</button>
+            <button id="zoom-in">+</button>
+        </div>
+    </div>
+
+    <div class="credit-container hidden">
+        <p class="credit">Made by H.R_894</p>
+    </div>
+    
+    <div id="info-popup" class="hidden">
+        <button id="close-popup">X</button>
+        <h2>How to Explore</h2>
+        <ul>
+            <li><span>Vertical Drag:</span> 3D Tilt</li>
+            <li><span>Horizontal Drag:</span> 2D Rotate</li>
+            <li><span>Zoom Buttons:</span> Zoom In & Out</li>
+            <li><span>Planet Click:</span> View details</li>
+        </ul>
+    </div>
+
+    <div id="planet-details" class="hidden">
+        <button id="close-details">X</button>
+        <h2 id="planet-name"></h2>
+        <p id="planet-description"></p>
+        <ul>
+            <li><strong>Diameter:</strong> <span id="planet-diameter"></span></li>
+            <li><strong>Mass:</strong> <span id="planet-mass"></span></li>
+            <li><strong>Fact:</strong> <span id="planet-fact"></span></li>
+        </ul>
+        <a id="wiki-link" href="#" target="_blank">Learn more on Wikipedia</a>
+    </div>
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="script.js"></script>
 </body>
