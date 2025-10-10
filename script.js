@@ -1,28 +1,35 @@
 $(document).ready(function(){
-    // Custom Cursor Trail Effect
+    // Custom Cursor & Touch Trail Effect
     const cursor = $('.cursor-trail');
     const trailColors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#007fff', '#8b00ff'];
 
-    $(document).on('mousemove', function(e) {
-        cursor.css({
-            left: e.clientX + 'px',
-            top: e.clientY + 'px'
-        });
-
-        // Create a new trail particle
+    function createTrail(x, y) {
         let trail = $('<div>').addClass('trail').appendTo('body');
         const randomColor = trailColors[Math.floor(Math.random() * trailColors.length)];
 
         trail.css({
-            left: e.clientX + 'px',
-            top: e.clientY + 'px',
+            left: x + 'px',
+            top: y + 'px',
             background: randomColor,
             'box-shadow': `0 0 5px ${randomColor}, 0 0 10px ${randomColor}`
         });
 
         setTimeout(function() {
             trail.remove();
-        }, 500); // Trail particle lifetime
+        }, 500);
+    }
+
+    $(document).on('mousemove', function(e) {
+        cursor.css({
+            left: e.clientX + 'px',
+            top: e.clientY + 'px'
+        });
+        createTrail(e.clientX, e.clientY);
+    });
+
+    $(document).on('touchmove', function(e) {
+        const touch = e.originalEvent.touches[0];
+        createTrail(touch.clientX, touch.clientY);
     });
 
     const preloader = $('#preloader');
@@ -40,7 +47,6 @@ $(document).ready(function(){
         }, 1000);
     }
 
-    // Show skip button after 5 seconds
     skipTimer = setTimeout(() => {
         skipButton.removeClass('hidden');
     }, 5000);
@@ -62,9 +68,9 @@ $(document).ready(function(){
             let meteor = $('<div class="meteor"></div>');
             showerContainer.append(meteor);
             
-            const startX = Math.random() * 100 - 50; // Top-left
+            const startX = Math.random() * 100 - 50;
             const startY = -150;
-            const endX = startX + 100; // Bottom-right
+            const endX = startX + 100;
             const endY = window.innerHeight + 150;
 
             meteor.css({
@@ -81,7 +87,7 @@ $(document).ready(function(){
                     $(this).remove();
                     meteorsFallen++;
 
-                    if (meteorsFallen < 6) { // Shake on first few impacts
+                    if (meteorsFallen < 6) {
                         $('body').addClass('shake');
                         setTimeout(() => $('body').removeClass('shake'), 500);
                     }
