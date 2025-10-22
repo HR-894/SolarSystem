@@ -58,50 +58,103 @@ $(document).ready(function(){
         transitionToMain();
     }, 30000);
 
+    // Helpers for cosmic background
+    function createStarElement(color) {
+        return $('<div class="star"></div>').css({
+            left: Math.random() * 100 + '%',
+            top: Math.random() * 100 + '%',
+            color: color,
+            width: (Math.random() * 2 + 1) + 'px',
+            height: (Math.random() * 2 + 1) + 'px',
+            animationDuration: (Math.random() * 1.5 + 0.8) + 's',
+            opacity: (Math.random() * 0.6 + 0.4)
+        });
+    }
+
+    function createNebulaElement() {
+        const colors = ['rgba(255,0,255,0.18)', 'rgba(0,100,255,0.18)', 'rgba(255,100,0,0.14)', 'rgba(128,0,255,0.14)'];
+        return $('<div class="nebula"></div>').css({
+            left: Math.random() * 100 + '%',
+            top: Math.random() * 100 + '%',
+            width: (Math.random() * 300 + 150) + 'px',
+            height: (Math.random() * 300 + 150) + 'px',
+            background: colors[Math.floor(Math.random() * colors.length)],
+            animationDelay: (Math.random() * 6) + 's'
+        });
+    }
+
     function playMeteorShower() {
         const showerContainer = $('#meteor-shower');
+        const cosmic = $('.cosmic-background');
         showerContainer.removeClass('hidden');
-        let meteors = 30;
+
+        // Populate cosmic background with nebulae and colorful stars
+        cosmic.empty();
+        for (let i = 0; i < 8; i++) cosmic.append(createNebulaElement());
+        const starColors = ['#ff69b4','#4169e1','#ffd700','#ff4500','#00fa9a','#9370db','#ffffff'];
+        for (let i = 0; i < 120; i++) cosmic.append(createStarElement(starColors[Math.floor(Math.random() * starColors.length)]));
+        cosmic.addClass('visible');
+
+        let meteors = 60; // increased intensity
         let meteorsFallen = 0;
 
         for (let i = 0; i < meteors; i++) {
             let meteor = $('<div class="meteor"></div>');
             showerContainer.append(meteor);
             
-            const startX = Math.random() * 100 - 50;
+            // Path: top-left to bottom-right, keep meteor tilt same as original (-45deg)
+            const startX = Math.random() * 50 - 20; // left side area in vw
             const startY = -150;
-            const endX = startX + 100;
+            const endX = startX + 100; // move towards right
             const endY = window.innerHeight + 150;
 
             meteor.css({
                 left: startX + 'vw',
                 top: startY + 'px',
-                transform: 'rotate(45deg)'
+                transform: 'rotate(-45deg)'
             });
 
             setTimeout(() => {
                 meteor.animate({
                     top: endY + 'px',
                     left: endX + 'vw'
-                }, Math.random() * 2000 + 1000, 'linear', function() {
-                    $(this).remove();
-                    meteorsFallen++;
+                }, Math.random() * 1500 + 800, 'linear', function() {
+                    // impact flash
+                    const impact = $('<div></div>').css({
+                        position: 'absolute',
+                        left: endX + 'vw',
+                        top: (endY - 20) + 'px',
+                        width: '4px',
+                        height: '4px',
+                        background: 'rgba(255,200,0,0.85)',
+                        borderRadius: '50%',
+                        filter: 'blur(2px)',
+                        zIndex: 10001
+                    }).appendTo(showerContainer);
 
-                    if (meteorsFallen < 6) {
+                    impact.animate({width: '12px', height: '12px', marginLeft: '-6px', marginTop: '-6px', opacity: 0}, 300, function(){ impact.remove(); });
+
+                    if (meteorsFallen < 8) {
                         $('body').addClass('shake');
                         setTimeout(() => $('body').removeClass('shake'), 500);
                     }
-                    
+
+                    $(this).remove();
+                    meteorsFallen++;
+
+                    // End of shower: hide cosmic background and proceed
                     if (meteorsFallen === meteors) {
                         showerContainer.addClass('fade-out');
                         setTimeout(() => {
-                            showerContainer.addClass('hidden');
+                            showerContainer.addClass('hidden').empty();
+                            cosmic.removeClass('visible');
+                            setTimeout(() => cosmic.empty(), 800);
                             $('.content, .title-container, #info-button, .zoom-controls, .controls, .credit-container').removeClass('hidden');
                             startAnimation();
-                        }, 1000);
+                        }, 800);
                     }
                 });
-            }, Math.random() * 2500);
+            }, Math.random() * 3000);
         }
     }
     
