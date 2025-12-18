@@ -334,6 +334,98 @@ $(document).ready(function(){
         });
 
         $(document).mouseup(function() { isDragged = false; });
+    
+        // --- NEW: HAND GESTURE LOGIC ---
+        const videoElement = document.getElementById('input_video');
+        let lastHandX = null;
+        let lastHandY = null;
+        let lastPinchDist = null;
+
+        function onResults(results) {
+            if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+                const landmarks = results.multiHandLandmarks[0];
+                
+                // Index Finger Tip (Point 8) and Thumb Tip (Point 4)
+                const indexTip = landmarks[8];
+                const thumbTip = landmarks[4];
+                
+                // 1. PINCH DETECTION (Zoom ke liye)
+                // Distance between thumb and index
+                const distance = Math.sqrt(Math.pow(indexTip.x - thumbTip.x, 2) + Math.pow(indexTip.y - thumbTip.y, 2));
+                
+                // Agar distance < 0.1 hai toh pinch maana jayega (Zoom)
+                if (distance < 0.1) {
+                    // Visual feedback ke liye cursor ka color badal sakte ho
+                    $('.cursor-trail').css('border-color', 'red'); 
+                    
+                    if (lastPinchDist) {
+                        const zoomDelta = (lastPinchDist - distance) * 5; // Sensitivity
+                        // Agar ungliyan paas aa rahi hain -> Zoom Out, Door -> Zoom In logic reverse kar sakte ho
+                        // Yahan simple logic:
+                        if(distance < lastPinchDist) scale -= 0.05; 
+                        else scale += 0.05;
+                        
+                        scale = Math.max(0.3, Math.min(3.0, scale));
+                        updateTransform();
+                    }
+                    lastPinchDist = distance;
+                    lastHandX = null; // Reset rotation tracking
+                } 
+                // 2. MOVEMENT DETECTION (Rotate ke liye - Open Hand)
+                else {
+                    $('.cursor-trail').css('border-color', 'yellow');
+                    lastPinchDist = null;
+                    
+                    const currentX = indexTip.x;
+                    const currentY = indexTip.y;
+
+                    if (lastHandX !== null && lastHandY !== null) {
+                        // Camera mirror hota hai, isliye minus lagaya
+                        const deltaX = (lastHandX - currentX) * 1000; 
+                        const deltaY = (lastHandY - currentY) * 5; // Tilt slow rakha hai
+
+                        rotationZ += deltaX * 0.2;
+                        
+                        // Vertical tilt thoda sensitive hai,
+                        verticalKaificent += deltaY * 0.001;
+                        verticalKaificent = Math.max(0, Math.min(1, verticalKaificent));
+                        
+                        updateTransform();
+                    }
+
+                    lastHandX = currentX;
+                    lastHandY = currentY;
+                }
+            } else {
+                // Agar haath screen se hat gaya
+                lastHandX = null;
+                lastHandY = null;
+                lastPinchDist = null;
+            }
+        }
+
+        // Initialize MediaPipe Hands
+        const hands = new Hands({locateFile: (file) => {
+            return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+        }});
+        
+        hands.setOptions({
+            maxNumHands: 1,
+            modelComplexity: 1,
+            minDetectionConfidence: 0.7,
+            minTrackingConfidence: 0.7
+        });
+        
+        hands.onResults(onResults);
+
+        const camera = new Camera(videoElement, {
+            onFrame: async () => {
+                await hands.send({image: videoElement});
+            },
+            width: 640,
+            height: 480
+        });
+        camera.start();
     }
     
     // Planet Data
