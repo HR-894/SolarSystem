@@ -46,8 +46,10 @@ $(document).ready(function(){
             playMeteorShower();
         }, 1000);
     }
+    transitionToMain(); // THIS LINE IS FOR REMOVING PRELOADER VIDEO
 
-    skipTimer = setTimeout(() => {
+    // IN FUTURE ADD PRELOADER VIDEO 
+    /* skipTimer = setTimeout(() => {
         skipButton.removeClass('hidden');
     }, 5000);
     
@@ -56,7 +58,7 @@ $(document).ready(function(){
     
     setTimeout(() => {
         transitionToMain();
-    }, 30000);
+    }, 30000); */
 
     // Helpers for cosmic background
     function createStarElement(color) {
